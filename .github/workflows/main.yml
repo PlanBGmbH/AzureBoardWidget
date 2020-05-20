@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: push
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: ['10', '12']
+        os: [windows-latest ]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Run cmd to install npm
+        run: npm install -g tfx-cli
+        
+      - name: Get the path to your global npm install directory and Find the tfx client under that
+        run: |
+          $path = npm prefix -g
+          $tfxCli = Join-Path $path "node_modules\tfx-cli\_build\tfx-cli.js"
+          Invoke-Expression -Command "node $tfxCli extension publish"
+        
+      - name: Change the Version Number of the Widget & create VSIX file
+        shell: pwsh 
+        run: |
+          $json = Get-Content "vss-extension.json" | ConvertFrom-Json
+          $json.version = "1.0.${{ github.run_number }}"
+          $json = $json | ConvertTo-Json
+          Set-Content vss-extension.json -Value $json
+        env: 
+          PATCH: GITHUB_RUN_NUMBER
+        
+      - name: Create vsix file
+        run: tfx extension create --manifest-globs #vss-extension.json
+        
+      - name: VS Marketplace Publisher
+        uses: MrLuje/vs-marketplace-publisher@v2
+        id: publish
+        with:
+          # Token to access your github repository
+          github_token:
+            ${{ github.token }}
+          # Personal access token to access your marketplace account.
+          pat: 
+            ${{secrets.PERSONAL_ACSESS_TOKEN}}
+          manifestPath: 
+            vss-extension.json
+          vsixPath: # optional
+            D:\a\DevOpsWidget\DevOpsWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix
+          # Use the latest release from your repository that contains a vsix. Exclusive with vsixPath.
+          #useLatestReleaseAsset: true

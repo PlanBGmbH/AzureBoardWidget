@@ -63,6 +63,6 @@ jobs:
           manifestPath: 
             vss-extension.json
           vsixPath: # optional
-            D:\a\DevOpsWidget\DevOpsWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix
+            D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix
           # Use the latest release from your repository that contains a vsix. Exclusive with vsixPath.
           #useLatestReleaseAsset: true

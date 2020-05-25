@@ -60,6 +60,5 @@ jobs:
             
       - name: VS Marketplace Publisher
         run: |
-          cd ${{github.workspace}}\VSSDK\VisualStudioIntegration\Tools\Bin\
           VsixPublisher.exe createPublisher -publisherName "TestVSIXPublisher" -displayName "Test VSIX Publisher" -personalAccessToken "${{secrets.PAT}}"
           VsixPublisher.exe publish -payload "${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix"  -publishManifest "vss-extension.json"

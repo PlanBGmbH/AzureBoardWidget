@@ -53,8 +53,8 @@ jobs:
       - name: Upload vsix as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: vsix-viewer-1.0.${{github.run_number}}.vsix
-          path: ${{github.workspace}}/vsix-viewer-1.0.${{github.run_number}}.vsix
+          name: LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
+          path: ${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
         env: 
             PATCH: GITHUB_RUN_NUMBER
         

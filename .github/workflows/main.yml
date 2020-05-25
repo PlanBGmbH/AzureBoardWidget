@@ -59,16 +59,7 @@ jobs:
             PATCH: GITHUB_RUN_NUMBER
             
       - name: VS Marketplace Publisher
-        uses: MrLuje/vs-marketplace-publisher@v2
-        id: publish
-        with:
-          # Token to access your github repository
-          github_token:
-            ${{ github.token }}
-          # Personal access token to access your marketplace account.
-          pat: 
-            ${{secrets.PAT}}
-          manifestPath: 
-            vss-extension.json
-          vsixPath:
-            ${{ github.workspace }}\LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
+        run: |
+          cd ${{github.workspace}}\VSSDK\VisualStudioIntegration\Tools\Bin\
+          VsixPublisher.exe createPublisher -publisherName "TestVSIXPublisher" -displayName "Test VSIX Publisher" -personalAccessToken "${{secrets.PAT}}"
+          VsixPublisher.exe publish -payload "${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix"  -publishManifest "vss-extension.json"

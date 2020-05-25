@@ -48,7 +48,7 @@ jobs:
           PATCH: GITHUB_RUN_NUMBER
         
       - name: Create vsix file
-        run: npm run package
+        run: tfx extension create --manifest-globs #vss-extension.json
         
       - name: VS Marketplace Publisher
         run: npm run deploy ${{secrets.PAT}}

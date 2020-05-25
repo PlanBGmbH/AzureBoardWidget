@@ -26,9 +26,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
-        run: |
-          npm install
-          npm ci
+        run: npm ci
         
       - name: Run cmd to install npm
         run: npm install -g tfx-cli

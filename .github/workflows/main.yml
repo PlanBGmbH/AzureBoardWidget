@@ -50,5 +50,5 @@ jobs:
       - name: Create vsix file
         run: tfx extension create --manifest-globs #vss-extension.json
         
-      - name: VS Marketplace Publisher
-        run: npm run deploy ${{secrets.PAT}}
+      #- name: VS Marketplace Publisher
+      #  run: npm run deploy ${{secrets.PAT}}

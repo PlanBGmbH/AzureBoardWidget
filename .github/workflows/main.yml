@@ -21,23 +21,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: Install Node 
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-          
-      - name: clean install dependencies
-        run: npm clean install
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install
         
-      #- name: Run cmd to install npm
-      #  run: npm install -g tfx-cli
+      - name: Run cmd to install npm
+        run: npm install -g tfx-cli
         
-      #- name: Get the path to your global npm install directory and Find the tfx client under that
-       # run: |
-        #  $path = npm prefix -g
-         # $tfxCli = Join-Path $path "node_modules\tfx-cli\_build\tfx-cli.js"
-          #Invoke-Expression -Command "node $tfxCli extension publish"
+      - name: Get the path to your global npm install directory and Find the tfx client under that
+        run: |
+          $path = npm prefix -g
+          $tfxCli = Join-Path $path "node_modules\tfx-cli\_build\tfx-cli.js"
+          Invoke-Expression -Command "node $tfxCli extension publish"
         
       - name: Change the Version Number of the Widget & create VSIX file
         shell: pwsh 
@@ -50,8 +48,7 @@ jobs:
           PATCH: GITHUB_RUN_NUMBER
         
       - name: Create vsix file
-        run: npm run package
-        #run: tfx extension create --manifest-globs #vss-extension.json
+        run: tfx extension create --manifest-globs #vss-extension.json
       
       - name: Upload vsix as artifact
         uses: actions/upload-artifact@v1
@@ -60,5 +57,3 @@ jobs:
           path: ${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
         env: 
             PATCH: GITHUB_RUN_NUMBER
-            
-        

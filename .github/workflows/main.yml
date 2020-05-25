@@ -51,6 +51,4 @@ jobs:
         run: tfx extension create --manifest-globs #vss-extension.json
         
       - name: VS Marketplace Publisher
-        run: |
-          VsixPublisher.exe createPublisher -publisherName "TestVSIXPublisher" -displayName "Test VSIX Publisher" -personalAccessToken "{${{secrets.PAT}}}"
-          VsixPublisher.exe publish -payload "{D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix}"  -publishManifest "{vss-extension.json}"
+        run: npm run deploy ${{secrets.PAT}}

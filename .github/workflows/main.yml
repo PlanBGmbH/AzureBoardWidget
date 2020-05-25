@@ -26,7 +26,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm ci
         
       - name: Run cmd to install npm
         run: npm install -g tfx-cli
@@ -48,7 +50,7 @@ jobs:
           PATCH: GITHUB_RUN_NUMBER
         
       - name: Create vsix file
-        run: tfx extension create --manifest-globs #vss-extension.json
+        run: npm run package
         
       - name: VS Marketplace Publisher
         run: npm run deploy ${{secrets.PAT}}

@@ -28,7 +28,7 @@ jobs:
           node-version: '12.x'
           
       - name: clean install dependencies
-        run: npm ci
+        run: npm clean install
         
       #- name: Run cmd to install npm
       #  run: npm install -g tfx-cli

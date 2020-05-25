@@ -51,18 +51,4 @@ jobs:
         run: tfx extension create --manifest-globs #vss-extension.json
         
       - name: VS Marketplace Publisher
-        uses: MrLuje/vs-marketplace-publisher@v2
-        id: publish
-        with:
-          # Token to access your github repository
-          github_token:
-            ${{ github.token }}
-          # Personal access token to access your marketplace account.
-          pat: 
-            ${{secrets.PAT}}
-          manifestPath: 
-            vss-extension.json
-          vsixPath: # optional
-            D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix
-          # Use the latest release from your repository that contains a vsix. Exclusive with vsixPath.
-          #useLatestReleaseAsset: true
+        run: VsixPublisher.exe publish -payload "{D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix}" -publishManifest "{vss-extension.json}" -ignoreWarnings "VSIXValidatorWarning01,VSIXValidatorWarning02"

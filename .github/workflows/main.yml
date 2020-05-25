@@ -57,3 +57,18 @@ jobs:
           path: ${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
         env: 
             PATCH: GITHUB_RUN_NUMBER
+            
+      - name: VS Marketplace Publisher
+        uses: MrLuje/vs-marketplace-publisher@v2
+        id: publish
+        with:
+          # Token to access your github repository
+          github_token:
+            ${{ github.token }}
+          # Personal access token to access your marketplace account.
+          pat: 
+            ${{secrets.PERSONAL_ACSESS_TOKEN}}
+          manifestPath: 
+            vss-extension.json
+          vsixPath:
+            ${{ github.workspace }}\LucaEbert.vsts-extensions-myExtensions-1.0.3.vsix

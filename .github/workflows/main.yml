@@ -49,10 +49,19 @@ jobs:
         
       - name: Create vsix file
         run: tfx extension create --manifest-globs #vss-extension.json
-      
-      - name: Upload vsix as artifact
-        uses: actions/upload-artifact@v1
+         
+      - name: VS Marketplace Publisher
+        uses: MrLuje/vs-marketplace-publisher@v2
         with:
-          github_token: ${{github.token}}
-          pat: ${{secrets.PAT}}
-          vsixPath: ${{github.workspace}}/LucaEbert.vsts-extensions-myExtensions-1.0.${{github.run_number}}.vsix
+          # Token to access your github repository
+          github_token:
+            ${{ github.token }}
+          # Personal access token to access your marketplace account.
+          pat: 
+            ${{secrets.PERSONAL_ACSESS_TOKEN}}
+          manifestPath: 
+            vss-extension.json
+          vsixPath: # optional
+            ${{ github.workspace }}\LucaEbert.vsts-extensions-myExtensions-1.0.3.vsix
+          # Use the latest release from your repository that contains a vsix. Exclusive with vsixPath.
+          #useLatestReleaseAsset: true

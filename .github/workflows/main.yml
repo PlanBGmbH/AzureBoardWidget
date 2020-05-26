@@ -58,7 +58,7 @@ jobs:
             ${{ github.token }}
           # Personal access token to access your marketplace account.
           pat: 
-            ${{secrets.PERSONAL_ACSESS_TOKEN}}
+            ${{secrets.PAT}}
           manifestPath: 
             vss-extension.json
           vsixPath: # optional

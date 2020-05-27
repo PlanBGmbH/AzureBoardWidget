@@ -9,6 +9,9 @@
         "build",
         "coding"
     ],
+    "identity":  {
+        "internalName":  "MyFirstVsixExtension"
+    },
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"

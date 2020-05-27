@@ -12,6 +12,8 @@
     "identity":  {
         "internalName":  "MyFirstVsixExtension"
     },
+    "overview":  "overview.md",
+    "priceCategory":  "free",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"

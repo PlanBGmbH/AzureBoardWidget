@@ -50,16 +50,20 @@ jobs:
       - name: Create vsix file
         run: tfx extension create --manifest-globs #vss-extension.json
          
+           
       - name: VS Marketplace Publisher
         uses: MrLuje/vs-marketplace-publisher@v2
+        id: publish
         with:
           # Token to access your github repository
           github_token:
             ${{ github.token }}
           # Personal access token to access your marketplace account.
           pat: 
-            ${{secrets.PAT}}
+            ${{secrets.PERSONAL_ACSESS_TOKEN}}
+          manifestPath: 
+            vss-extension.json
           vsixPath: # optional
-            ${{ github.workspace }}\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix
+            ${{ github.workspace }}\LucaEbert.vsts-extensions-myExtensions-1.0.3.vsix
           # Use the latest release from your repository that contains a vsix. Exclusive with vsixPath.
           #useLatestReleaseAsset: true

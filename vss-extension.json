@@ -5,8 +5,9 @@
     "name": "My First Set of Widgets",
     "description": "Samples containing different widgets extending dashboards",
     "publisher": "LucaEbert",
-    "categories": [
-        "Azure Boards"
+    "categories":  [
+        "build",
+        "coding"
     ],
     "targets": [
         {

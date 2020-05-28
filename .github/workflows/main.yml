@@ -17,7 +17,7 @@ jobs:
       matrix:
         node_version: ['12']
         os: [windows-latest ]
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -52,5 +52,6 @@ jobs:
          
            
       - name: VS Marketplace Publisher
+        shell: pwsh
         run: |
-          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany --token 5gwoql4abj6pi4qb6uyputstbeieqc4lgit7jrluarv436k4xa2q
+          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany --token ${{secrets.PAT}}

@@ -53,6 +53,5 @@ jobs:
            
       - name: VS Marketplace Publisher
         run: |
-          $PAT = ${{secrets.PAT}}
           tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany
-          Write-Output $PAT
+          Write-Output ${{secrets.PAT}}

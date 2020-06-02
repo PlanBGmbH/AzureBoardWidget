@@ -48,10 +48,10 @@ jobs:
           PATCH: GITHUB_RUN_NUMBER
         
       - name: Create vsix file
-        run: tfx extension create --manifest-globs #vss-extension.json
+        run: tfx extension create --manifest-globs vss-extension.json
          
            
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |
-          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany --token ${{secrets.PAT}}
+          tfx extension publish --visx D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }} --token ${{secrets.PAT}}

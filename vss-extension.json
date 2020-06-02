@@ -26,7 +26,7 @@
             "id": "HelloWorldWidget",
             "type": "ms.vss-dashboards-web.widget",
             "targets": [
-                "ms.vss-dashboards-web.widget-catalog"
+                "ms.vss-dashboards-web.widget"
             ],
             "properties": {
                 "name": "Hello World Widget",

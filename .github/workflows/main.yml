@@ -32,7 +32,7 @@ jobs:
         run: npm install -g tfx-cli
         
       
-      - name: Change the Version Number of the Widget & create VSIX file
+      - name: Change the Version Number of the Widget & create VSIX file #THIS CAUSES ERROR FIX IT
         shell: pwsh 
         run: |
           $json = Get-Content "vss-extension.json" | ConvertFrom-Json

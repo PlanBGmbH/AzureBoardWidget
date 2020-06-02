@@ -54,5 +54,4 @@ jobs:
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |
-          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany
-          Write-Host ${{secrets.PAT}}
+          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany --token ${{secrets.PAT}}

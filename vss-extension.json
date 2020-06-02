@@ -24,7 +24,7 @@
     "contributions": [
         {
             "id": "HelloWorldWidget",
-            "type": "ms.vss-dashboards-web.widget-catalog",
+            "type": "ms.vss-dashboards-web.widget",
             "targets": [
                 "ms.vss-dashboards-web.widget-catalog"
             ],

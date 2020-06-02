@@ -31,27 +31,8 @@ jobs:
       - name: Run cmd to install npm
         run: npm install -g tfx-cli
         
-      - name: Get the path to your global npm install directory and Find the tfx client under that
-        run: |
-          $path = npm prefix -g
-          $tfxCli = Join-Path $path "node_modules\tfx-cli\_build\tfx-cli.js"
-          Invoke-Expression -Command "node $tfxCli extension publish"
-        
-      - name: Change the Version Number of the Widget & create VSIX file
-        shell: pwsh 
-        run: |
-          $json = Get-Content "vss-extension.json" | ConvertFrom-Json
-          $json.version = "1.0.${{ github.run_number }}"
-          $json = $json | ConvertTo-Json
-          Set-Content vss-extension.json -Value $json
-        env: 
-          PATCH: GITHUB_RUN_NUMBER
-        
-      - name: Create vsix file
-        run: tfx extension create --manifest-globs vss-extension.json
-         
-           
+      #Input Stuff here  
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |
-          tfx extension publish --visx D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }} --token ${{secrets.PAT}}
+          tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany --token ${{secrets.PAT}}

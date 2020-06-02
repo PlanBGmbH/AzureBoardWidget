@@ -55,4 +55,4 @@ jobs:
         shell: pwsh
         run: |
           tfx extension publish --manifest-globs vss-extension.json --share-with planb-germany
-          Write-Output: ${{secrets.PAT}}
+          Write-Host: ${{secrets.PAT}}

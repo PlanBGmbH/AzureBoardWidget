@@ -54,4 +54,4 @@ jobs:
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |
-          tfx extension publish --vsix D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix --token ${{secrets.PAT}} --manifests D:\a\AzureBoardWidget\AzureBoardWidget\vss-extension.json 
+          tfx extension publish --vsix D:\a\AzureBoardWidget\AzureBoardWidget\LucaEbert.vsts-extensions-myExtensions-1.0.${{ github.run_number }}.vsix

@@ -14,7 +14,7 @@
             VSS.register("HelloWorldWidget", function () {
                 return {
                     load: function (widgetSettings) {
-                        //Connecting to the ZEISS API with an Security Token
+                        //Connecting to the ZEISS API with an Security Token.
                         var myPAT = ${{ secrets.PAT_DEVOPS }}; //Key is Ending March 2021
                         var myOrg = "ZEISSgroup";
                         var base64Pat = btoa(":" + myPAT);

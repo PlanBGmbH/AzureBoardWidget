@@ -45,7 +45,7 @@ jobs:
       - name: Write the Secret PAT
         shell: pwsh
         run: |
-          $html = (Get-Content "testWidgetHTML.html") -replace 'PLACEHOLDER', '${{secrets.PAT_DEVOPS}}'
+          $html = (Get-Content "hello-world.html") -replace 'PLACEHOLDER', '${{secrets.PAT_DEVOPS}}'
           Set-Content "testWidgetHTML.html" -Value $html
 
       - name: VS Marketplace Publisher

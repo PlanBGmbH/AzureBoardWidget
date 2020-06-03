@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-    <html>
-        <head>          
-            <script src="node_modules\vss-web-extension-sdk\lib\VSS.SDK.min.js"></script>
-            <script type="text/javascript">
-                VSS.init({                        
-                    explicitNotifyLoaded: true,
-                    usePlatformStyles: true
-                });
-        
-                VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
-                    WidgetHelpers.IncludeWidgetStyles();
-                    VSS.register("HelloWorldWidget", function () {                
-                        return {
-                            load: function (widgetSettings) {
-                                var $title = $('h2.title');
-                                $title.text('This a Test');
-        
-                                return WidgetHelpers.WidgetStatusHelper.Success();
-                            }
+<html>
+
+<head>
+    <script src="node_modules\vss-web-extension-sdk\lib\VSS.SDK.min.js"></script>
+    <script type="text/javascript">
+        VSS.init({
+            explicitNotifyLoaded: true,
+            usePlatformStyles: true
+        });
+
+        VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
+            WidgetHelpers.IncludeWidgetStyles();
+            VSS.register("HelloWorldWidget", function () {
+                return {
+                    load: function (widgetSettings) {
+                        //Connecting to the ZEISS API with an Security Token
+                        var myPAT = ${{ secrets.PAT_DEVOPS }}; //Key is Ending March 2021
+                        var myOrg = "ZEISSgroup";
+                        var base64Pat = btoa(":" + myPAT);
+                        var request = new XMLHttpRequest;
+                        request.open("GET", "https://dev.azure.com/" + myOrg + "/ZEISS%20IQS%20Smart%20Services%20Dashboard/_environments/44?view=resources&__rt=fps&__ver=2$filter=stageName%20eq%20'deploy_production'", true);
+                        var b = "Basic " + base64Pat;
+                        request.setRequestHeader("Authorization", b);
+
+                        //Function that goes through the API
+                        request.onload = function () {
+                            var data = JSON.parse(this.response);
+                            console.log(data);
+                            var version = (data.fps.dataProviders.data["ms.vss-environments-web.environment-deployment-history-data-provider"].deploymentExecutionRecords[0].owner.name)
+                            document.getElementById("versionProd").innerHTML = version
                         }
-                    });
-                    VSS.notifyLoadSucceeded();
-                });
-            </script>
-        </head>
-        <body>
-            <div class="widget">
-                <h2 class="title"></h2>
-            </div>
-        </body>
-    </html>
+                        request.send();
+                        return WidgetHelpers.WidgetStatusHelper.Success();
+                    }
+                }
+            });
+            VSS.notifyLoadSucceeded();
+        });
+    </script>
+</head>
+
+<body>
+    <h2>Version on Deployment Production</h2>
+    <div id="versionProd"></div>
+</body>
+
+</html>

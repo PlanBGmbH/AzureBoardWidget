@@ -17,7 +17,7 @@ jobs:
       matrix:
         node_version: ['12']
         os: [windows-latest ]
-    # Steps represent a sequence of tasks that will be executed as part of the job.
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,7 +31,8 @@ jobs:
       - name: Run cmd to install npm
         run: npm install -g tfx-cli
         
-      #Input Stuff here  
+      #Put Stuff here
+
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |

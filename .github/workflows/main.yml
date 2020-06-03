@@ -31,16 +31,7 @@ jobs:
       - name: Run cmd to install npm
         run: npm install -g tfx-cli
         
-      
-      - name: Change the Version Number of the Widget & create VSIX file #THIS CAUSES ERROR FIX IT
-        shell: pwsh 
-        run: |
-          $json = Get-Content "vss-extension.json" | ConvertFrom-Json
-          $json.version = "1.0.${{ github.run_number }}"
-          $json = $json | ConvertTo-Json
-          Set-Content vss-extension.json -Value $json
-        env: 
-          PATCH: GITHUB_RUN_NUMBER
+      #Put Stuff here
 
       - name: VS Marketplace Publisher
         shell: pwsh

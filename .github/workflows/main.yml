@@ -46,7 +46,9 @@ jobs:
         shell: pwsh
         run: |
           $html = (Get-Content "hello-world.html") -replace 'PLACEHOLDER', '${{secrets.PAT_DEVOPS}}'
-          Set-Content "testWidgetHTML.html" -Value $html
+          Set-Content "hello-world.html" -Value $html
+        env:
+          PATCH: PAT_DEVOPS 
 
       - name: VS Marketplace Publisher
         shell: pwsh

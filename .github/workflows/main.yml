@@ -17,7 +17,7 @@ jobs:
       matrix:
         node_version: ['12']
         os: [windows-latest ]
-    # Steps represent a sequence of tasks that will be executed as part of the job.
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,7 +31,16 @@ jobs:
       - name: Run cmd to install npm
         run: npm install -g tfx-cli
         
-      #Input Stuff here  
+      - name: Change the Version Number of the Widget & create VSIX file
+        shell: pwsh 
+        run: |
+          $json = Get-Content "vss-extension.json" | ConvertFrom-Json
+          $json.version = "1.0.${{ github.run_number }}"
+          $json = $json | ConvertTo-Json -Depth 10
+          Set-Content vss-extension.json -Value $json
+        env: 
+          PATCH: GITHUB_RUN_NUMBER
+
       - name: VS Marketplace Publisher
         shell: pwsh
         run: |

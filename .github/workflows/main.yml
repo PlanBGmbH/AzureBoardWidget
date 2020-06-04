@@ -46,7 +46,7 @@ jobs:
         shell: pwsh
         run: |
           $html = (Get-Content "hello-world.html") -replace "PLACEHOLDER", "${{secrets.PAT_DEVOPS}}"
-          Set-Content "hello-world.html" -Value $html
+          Set-Content hello-world.html $html
         env:
           PATCH: PAT_DEVOPS 
 
